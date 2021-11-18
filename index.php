@@ -1,6 +1,3 @@
-<?php
-
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,7 +19,22 @@
           </ul>
     </header>
     <main>
-        
+        <?php 
+                    session_start();
+                    if(isset($_POST['deconnexion']))
+                    { 
+                        session_unset();
+                        header("location:connexion.php");
+                    }
+                    else if($_SESSION['login'] !== ""){
+                        $user = $_SESSION['login'];
+                        echo "<br>Bonjour $user, vous êtes connectés".'<br>';
+                    }
+    
+        ?>
+        <form action="" method="post">
+            <input class="index" type="submit" value="deconnexion" name = "deconnexion">
+        </form>
     </main>
 
     <footer>

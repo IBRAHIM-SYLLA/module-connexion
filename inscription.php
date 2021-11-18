@@ -2,28 +2,25 @@
 $bdd = mysqli_connect('localhost','root','','moduleconnexion');
 mysqli_set_charset($bdd, 'utf8');
 if (isset($_POST['login']) && isset($_POST['prenom']) && isset($_POST['nom']) && isset($_POST['password'])){
-    $i = $_POST['login']; 
+    $i = $_POST['login'];
     $j = $_POST['prenom'];
     $k = $_POST['nom'];
     $l = $_POST['password'];
         if ($l == $_POST['passconf']){
-        
-            //$select = mysqli_fetch_all("SELECT login FROM utilisateurs");
-            if($i !== "SELECT login FROM utilisateurs"){
-            $requete = mysqli_query($bdd,"INSERT INTO utilisateurs (login, prenom, nom, password) VALUES ('$i', '$j', '$k', '$l')");
+        $veriflogin = mysqli_query($bdd,"SELECT login FROM utilisateurs WHERE login = '$i'");
+        $resultat = mysqli_fetch_all($veriflogin);
+        if(count($resultat) == 0){
+         $requete = mysqli_query($bdd,"INSERT INTO utilisateurs (login, prenom, nom, password) VALUES ('$i', '$j', '$k', '$l')");
         }
         else {
             echo "login déjà utilisé";
         }
-     
-        }
+    }
    else
    {
        echo '<h3>*Les mot de passes doivent êtres identiques !!!</h3>';
    }
-
-   }
-
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -40,7 +37,7 @@ if (isset($_POST['login']) && isset($_POST['prenom']) && isset($_POST['nom']) &&
             <ul>
                 <li><a href="index.php">Accueil</a></li>
                 <li><a href="inscription.php">Inscription</a></li>
-                <li><a href="connexion.php">Connexion</a></li> 
+                <li><a href="connexion.php">Connexion</a></li>
                 <li><a href="">Mon Profil</a></li>
                 <li><a href="">Admin</a></li>
             </ul>
@@ -50,7 +47,7 @@ if (isset($_POST['login']) && isset($_POST['prenom']) && isset($_POST['nom']) &&
             <form action="inscription.php" method="post">
               <label for="login">Login</label>
               <input type="text" id="login" name="login">
-          
+
               <label for="prenom">Prenom</label>
               <input type="text" id="prenom" name="prenom">
 
@@ -62,7 +59,7 @@ if (isset($_POST['login']) && isset($_POST['prenom']) && isset($_POST['nom']) &&
 
               <label for="passconf">passeword confirmation</label>
               <input type="password" id="passconf" name="passconf">
-            
+
               <input type="submit" value="inscription">
             </form>
         </div>

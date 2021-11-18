@@ -1,25 +1,21 @@
 <?php
 session_start();
-var_dump($_POST);
 if (isset($_POST['login']) && isset($_POST['password'])){
-    var_dump('test');
     $bdd = mysqli_connect('localhost','root','','moduleconnexion');
     mysqli_set_charset($bdd, 'utf8');
     $login = $_POST['login'];
     $password = $_POST['password'];
     if($login !== "" && $password !== ""){
         $requete = "SELECT count(*) FROM utilisateurs WHERE login = '$login' and password = '$password'";
-        var_dump($requete);
         $requete2 = mysqli_query($bdd, $requete);
          $reponse = mysqli_fetch_array($requete2);
         $count = $reponse['count(*)'];
         // si les indentifiant sont correctes
-        var_dump($count);
         if($count!=0){
             $_SESSION['login'] = $login;
             header('Location: index.php');
         }
-                if($_SESSION['login'] !== ""){
+                if(isset($_SESSION['login'])){
                     $user = $_SESSION['login'];
                     // afficher un message
                     echo "Bonjour $user, vous êtes connecté";
@@ -28,9 +24,8 @@ if (isset($_POST['login']) && isset($_POST['password'])){
             echo "login ou password incorrect";
         }
     }
-    
+
 }
-// }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -60,7 +55,7 @@ if (isset($_POST['login']) && isset($_POST['password'])){
 
               <label for="passeword">Passeword</label>
               <input type="text" id="password" name="password">
-            
+
               <input type="submit" value="Connexion">
             </form>
         </div>
