@@ -11,6 +11,7 @@ if (isset($_POST['login']) && isset($_POST['prenom']) && isset($_POST['nom']) &&
         $resultat = mysqli_fetch_all($veriflogin);
         if(count($resultat) == 0){
          $requete = mysqli_query($bdd,"INSERT INTO utilisateurs (login, prenom, nom, password) VALUES ('$i', '$j', '$k', '$l')");
+         header('Location: connexion.php');
         }
         else {
             echo "login déjà utilisé";
@@ -38,7 +39,7 @@ if (isset($_POST['login']) && isset($_POST['prenom']) && isset($_POST['nom']) &&
                 <li><a href="index.php">Accueil</a></li>
                 <li><a href="inscription.php">Inscription</a></li>
                 <li><a href="connexion.php">Connexion</a></li>
-                <li><a href="">Mon Profil</a></li>
+                <li><a href="profil.php">Mon Profil</a></li>
                 <li><a href="">Admin</a></li>
             </ul>
         </header>

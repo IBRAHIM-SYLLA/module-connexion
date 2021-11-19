@@ -14,23 +14,23 @@
             <li><a href="index.php">Accueil</a></li>
             <li><a href="inscription.php">Inscription</a></li>
             <li><a href="connexion.php">Connexion</a></li>
-            <li><a href="">Mon Profil</a></li>
+            <li><a href="profil.php">Mon Profil</a></li>
             <li><a href="">Admin</a></li>
           </ul>
     </header>
     <main>
-        <?php 
+        <?php
                     session_start();
                     if(isset($_POST['deconnexion']))
-                    { 
+                    {
                         session_unset();
-                        header("location:connexion.php");
+                        header("location: connexion.php");
                     }
-                    else if($_SESSION['login'] !== ""){
+                    else if( !empty( $_SESSION) && $_SESSION['login'] == ""){
                         $user = $_SESSION['login'];
                         echo "<br>Bonjour $user, vous êtes connectés".'<br>';
                     }
-    
+                    var_dump($_SESSION);
         ?>
         <form action="" method="post">
             <input class="index" type="submit" value="deconnexion" name = "deconnexion">

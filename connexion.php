@@ -6,14 +6,15 @@ if (isset($_POST['login']) && isset($_POST['password'])){
     $login = $_POST['login'];
     $password = $_POST['password'];
     if($login !== "" && $password !== ""){
-        $requete = "SELECT count(*) FROM utilisateurs WHERE login = '$login' and password = '$password'";
+        $requete = "SELECT * FROM utilisateurs WHERE login = '$login' AND password = '$password'";
         $requete2 = mysqli_query($bdd, $requete);
-         $reponse = mysqli_fetch_array($requete2);
-        $count = $reponse['count(*)'];
-        // si les indentifiant sont correctes
-        if($count!=0){
+        $reponse = mysqli_fetch_array($requete2);
+        if($reponse){
             $_SESSION['login'] = $login;
-            header('Location: index.php');
+             header('Location: index.php');
+            $_SESSION['nom'] =$reponse['nom'];
+            $_SESSION['prenom']=$reponse['prenom'];
+            $_SESSION['password']=$reponse['password'];
         }
                 if(isset($_SESSION['login'])){
                     $user = $_SESSION['login'];
