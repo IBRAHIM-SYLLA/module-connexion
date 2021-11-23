@@ -1,32 +1,5 @@
 <?php
 session_start();
-if (isset($_POST['login']) && isset($_POST['password'])){
-    $bdd = mysqli_connect('localhost','root','','moduleconnexion');
-    mysqli_set_charset($bdd, 'utf8');
-    $login = $_POST['login'];
-    $password = $_POST['password'];
-    if($login !== "" && $password !== ""){
-        $requete = "SELECT * FROM utilisateurs WHERE login = '$login' AND password = '$password'";
-        $requete2 = mysqli_query($bdd, $requete);
-        $reponse = mysqli_fetch_array($requete2);
-        if($reponse){
-            $_SESSION['login'] = $login;
-             header('Location: index.php');
-            $_SESSION['nom'] =$reponse['nom'];
-            $_SESSION['prenom']=$reponse['prenom'];
-            $_SESSION['password']=$reponse['password'];
-        }
-                if(isset($_SESSION['login'])){
-                    $user = $_SESSION['login'];
-                    // afficher un message
-                    echo "Bonjour $user, vous êtes connecté";
-                }
-        else{
-            echo "login ou password incorrect";
-        }
-    }
-
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -35,7 +8,7 @@ if (isset($_POST['login']) && isset($_POST['password'])){
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="accueil connexion.css">
-    <title>Document</title>
+    <title>Connexion</title>
 </head>
 <body>
     <header>
@@ -45,17 +18,37 @@ if (isset($_POST['login']) && isset($_POST['password'])){
             <li><a href="inscription.php">Inscription</a></li>
             <li><a href="connexion.php">Connexion</a></li>
             <li><a href="">Mon Profil</a></li>
-            <li><a href="">Admin</a></li>
         </ul>
     </header>
     <main>
         <div class="inscription">
+            <?php if (isset($_POST['login']) && isset($_POST['password'])){
+                $bdd = mysqli_connect('localhost','root','','moduleconnexion');
+                mysqli_set_charset($bdd, 'utf8');
+                $login = $_POST['login'];
+                $password = $_POST['password'];
+                if($login !== "" && $password !== ""){
+                    $requete = "SELECT * FROM utilisateurs WHERE login = '$login' AND password = '$password'";
+                    $requete2 = mysqli_query($bdd, $requete);
+                    $reponse = mysqli_fetch_array($requete2);
+                    if($reponse){
+                        $_SESSION['login'] = $login;
+                        header('Location: index.php');
+                        $_SESSION['nom'] =$reponse['nom'];
+                        $_SESSION['prenom']=$reponse['prenom'];
+                        $_SESSION['password']=$reponse['password'];
+                    }
+                    else{
+                        echo "<h3>login ou password incorrect</h3>";
+                    }
+                }
+            }?>
             <form  method="post">
               <label for="login">Login</label>
               <input type="text" id="login" name="login">
 
               <label for="passeword">Passeword</label>
-              <input type="text" id="password" name="password">
+              <input type="password" id="password" name="password">
 
               <input type="submit" value="Connexion">
             </form>
@@ -63,7 +56,21 @@ if (isset($_POST['login']) && isset($_POST['password'])){
     </main>
 
     <footer>
-
+        <div>
+            <p class="footerh1">Suivez nous !</p>
+            <div class="rs">
+                <img src="image/facebook.svg" alt="" height="64px">
+                <p>Instagram</p>
+            </div>
+            <div class="rs">
+                <img src="image/instagram.svg" alt="" height="64px">
+                <p>Instagram</p>
+            </div>
+        </div>
+        <div>
+            <p class="footerh1">Github</p>
+            <a href="https://github.com/IBRAHIM-SYLLA/module-connexion.git" target="_blank"><p>Module-connexion</p></a>
+        </div>
     </footer>
 </body>
 </html>

@@ -1,3 +1,6 @@
+<?php
+    session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,33 +15,62 @@
     <h1><em> ANIME & Co</em></h1>
         <ul>
             <li><a href="index.php">Accueil</a></li>
-            <li><a href="inscription.php">Inscription</a></li>
-            <li><a href="connexion.php">Connexion</a></li>
+            <?php if (empty($_SESSION)){
+                echo '<li><a href="inscription.php">Inscription</a></li>
+                <li><a href="connexion.php">Connexion</a></li>';
+            }?>
             <li><a href="profil.php">Mon Profil</a></li>
-            <li><a href="">Admin</a></li>
-          </ul>
+            <?php
+                if (isset($_SESSION['login']) && isset($_SESSION['password']) && $_SESSION['password'] == 'admin'){
+                    echo '<li><a href="admin.php">Admin</a></li>';
+                }
+                if(!empty( $_SESSION)){
+                        echo '<li><form action="" method="post">
+                                <input class="index" type="submit" value="deconnexion" name = "deconnexion">
+                            </form></li>';
+                }
+            ?>
+        </ul>
     </header>
     <main>
         <?php
-                    session_start();
-                    if(isset($_POST['deconnexion']))
-                    {
-                        session_unset();
-                        header("location: connexion.php");
-                    }
-                    else if( !empty( $_SESSION) && $_SESSION['login'] == ""){
-                        $user = $_SESSION['login'];
-                        echo "<br>Bonjour $user, vous êtes connectés".'<br>';
-                    }
-                    var_dump($_SESSION);
+            if(isset($_POST['deconnexion'])){
+                session_unset();
+                header("location: connexion.php");
+            }
+            else if(!empty($_SESSION)){
+                $user = $_SESSION['login'];
+                echo "<p id='bonjour'>Bonjour $user, vous êtes connectés".'</p>';
+            }
         ?>
-        <form action="" method="post">
-            <input class="index" type="submit" value="deconnexion" name = "deconnexion">
-        </form>
+        <div class="gallimg">
+            <img src="image/demon_salyer.png" alt="">
+            <img src="image/naruto.jpg" alt="">
+            <img src="image/ken.jpg" alt="">
+            <img src="image/bleach.jpg" alt="">
+            <img src="image/baki.jpg" alt="">
+            <img src="image/hxh.jpeg" alt="">
+            <img src="image/dbz.jpg" alt="">
+            <img src="image/one.jpg" alt="">
+        </div>
     </main>
 
     <footer>
-
+        <div>
+            <p class="footerh1">Suivez nous !</p>
+            <div class="rs">
+                <img src="image/facebook.svg" alt="" height="64px">
+                <p>Instagram</p>
+            </div>
+            <div class="rs">
+                <img src="image/instagram.svg" alt="" height="64px">
+                <p>Instagram</p>
+            </div>
+        </div>
+        <div>
+            <p class="footerh1">Github</p>
+            <a href="https://github.com/IBRAHIM-SYLLA/module-connexion.git" target="_blank"><p>Module-connexion</p></a>
+        </div>
     </footer>
 </body>
 </html>
