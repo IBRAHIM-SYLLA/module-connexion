@@ -14,7 +14,6 @@
                 <li><a href="index.php">Accueil</a></li>
                 <li><a href="inscription.php">Inscription</a></li>
                 <li><a href="connexion.php">Connexion</a></li>
-                <li><a href="profil.php">Mon Profil</a></li>
             </ul>
         </header>
     <main>
@@ -30,13 +29,14 @@
                     if ($l == $_POST['passconf']){
                         $veriflogin = mysqli_query($bdd,"SELECT login FROM utilisateurs WHERE login = '$i'");
                         $resultat = mysqli_fetch_all($veriflogin);
-                    if(count($resultat) == 0){
-                        $requete = mysqli_query($bdd,"INSERT INTO utilisateurs (login, prenom, nom, password) VALUES ('$i', '$j', '$k', '$l')");
-                        header('Location: connexion.php');
-                    }
-                    else {
-                        echo "Login déjà utilisé !!!";
-                    }
+                            if(count($resultat) == 0){
+                                $l = password_hash($l, PASSWORD_BCRYPT);
+                                $requete = mysqli_query($bdd,"INSERT INTO utilisateurs (login, prenom, nom, password) VALUES ('$i', '$j', '$k', '$l')");
+                                header('Location: connexion.php');
+                            }
+                        else {
+                            echo "Login déjà utilisé !!!";
+                        }
                     }
                     else
                     {

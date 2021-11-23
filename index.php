@@ -18,10 +18,13 @@
             <?php if (empty($_SESSION)){
                 echo '<li><a href="inscription.php">Inscription</a></li>
                 <li><a href="connexion.php">Connexion</a></li>';
-            }?>
-            <li><a href="profil.php">Mon Profil</a></li>
+            }
+                else{
+                    echo '<li><a href="profil.php">Mon Profil</a></li>';
+                }
+            ?>
             <?php
-                if (isset($_SESSION['login']) && isset($_SESSION['password']) && $_SESSION['password'] == 'admin'){
+                if (isset($_SESSION['utilisateurs']) && isset($_SESSION['password']) && $_SESSION['password'] == 'admin'){
                     echo '<li><a href="admin.php">Admin</a></li>';
                 }
                 if(!empty( $_SESSION)){
@@ -39,7 +42,7 @@
                 header("location: connexion.php");
             }
             else if(!empty($_SESSION)){
-                $user = $_SESSION['login'];
+                $user = $_SESSION['utilisateurs'];
                 echo "<p id='bonjour'>Bonjour $user, vous êtes connectés".'</p>';
             }
         ?>

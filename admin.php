@@ -7,7 +7,7 @@ $requete = mysqli_query($bdd,"SELECT * FROM utilisateurs");
 
 $utilisateurs = mysqli_fetch_all($requete, MYSQLI_ASSOC);
 
-if ($_SESSION['login'] != 'admin'){
+if ($_SESSION['utilisateurs'] != 'admin'){
     header('Location: index.php');
     exit();
 }

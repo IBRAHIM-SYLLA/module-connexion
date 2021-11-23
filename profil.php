@@ -5,8 +5,7 @@ $bdd = mysqli_connect('localhost','root','','moduleconnexion');
 mysqli_set_charset($bdd, 'utf8');
 if(isset($_POST['submitProfil']))
 {
-    if(isset($_POST['login']) && isset($_POST['prenom']) && isset($_POST['nom']) && isset($_POST['password']))
-    {
+    if(isset($_POST['login']) && isset($_POST['prenom']) && isset($_POST['nom']) && isset($_POST['password'])){
         $requete = mysqli_query($bdd,"SELECT login, prenom, nom, password FROM utilisateurs WHERE login = '$oldLog'");
         $user = mysqli_fetch_all($requete, MYSQLI_ASSOC);
 
@@ -17,10 +16,10 @@ if(isset($_POST['submitProfil']))
 
         $requete2 = "UPDATE utilisateurs SET login = '$login_update', prenom = '$prenom_update', nom = '$nom_update', password = '$password_update' WHERE login = '$oldLog'";
         $reponse = $bdd->query($requete2);
-        // $_SESSION['login'] = $_POST['login'];
-        // header('Location: index.php');
-            session_unset();
-            header("location: connexion.php");
+        $_SESSION['login']= $login_update;
+        $_SESSION['prenom']= $prenom_update;
+        $_SESSION['nom']= $nom_update;
+        $_SESSION['password']= $password_update;
     }
 }
 if(isset($_POST['deconnexion'])){
@@ -45,8 +44,11 @@ if(isset($_POST['deconnexion'])){
                     <?php if (empty($_SESSION)){
                         echo '<li><a href="inscription.php">Inscription</a></li>
                         <li><a href="connexion.php">Connexion</a></li>';
-                    }?>
-                    <li><a href="profil.php">Mon Profil</a></li>
+                    }
+                    else{
+                        echo '<li><a href="profil.php">Mon Profil</a></li>';
+                    }
+                    ?>
                     <?php
                     if (isset($_SESSION['login']) && isset($_SESSION['password']) && $_SESSION['password'] == 'admin'){
                                 echo '<li><a href="admin.php">Admin</a></li>';

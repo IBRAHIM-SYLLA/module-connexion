@@ -22,27 +22,57 @@ session_start();
     </header>
     <main>
         <div class="inscription">
-            <?php if (isset($_POST['login']) && isset($_POST['password'])){
+
+            <?php
                 $bdd = mysqli_connect('localhost','root','','moduleconnexion');
                 mysqli_set_charset($bdd, 'utf8');
-                $login = $_POST['login'];
+                if (!empty($_POST)){
+                    if (isset($_POST['login']) && isset($_POST['password']) && !empty($_POST['login']) && !empty($_POST['password'])){
+                        $login = $_POST['login'];
+                        $password = $_POST['password'];
+                        $sql = "SELECT * FROM utilisateurs WHERE login = '$login'";
+                        $req = mysqli_query($bdd, $sql);
+                        $utilisateurs = mysqli_fetch_all($req, MYSQLI_ASSOC);
+                        if (count($utilisateurs) > 0){
+                            if(password_verify($password, $utilisateurs[0]['password']) || $password == $utilisateurs[0]['password']){
+                                $_SESSION['utilisateurs'] = [
+                                    'id' => $utilisateurs[0]['id'],
+                                    'login' => $utilisateurs[0]['login'],
+                                    'prenom' => $utilisateurs[0]['prenom'],
+                                    'nom' => $utilisateurs[0]['nom'],
+                                    'password' => $utilisateurs[0]['password'],
+                                ];
+                                header('Location: index.php');
+                                exit();
+                            }
+                        var_dump($_SESSION);
+                        var_dump($utilisateurs);
+                        }
+                        else{
+                            echo "<h3>login ou password incorrect</h3>";
+                        }
+                    }
+                }?>
+             <!-- if (isset($_POST['login']) && isset($_POST['password'])){
+
                 $password = $_POST['password'];
-                if($login !== "" && $password !== ""){
+                // if($login !== "" && $password !== ""){
                     $requete = "SELECT * FROM utilisateurs WHERE login = '$login' AND password = '$password'";
                     $requete2 = mysqli_query($bdd, $requete);
-                    $reponse = mysqli_fetch_array($requete2);
-                    if($reponse){
+                    $reponse = mysqli_fetch_all($requete2);
                         $_SESSION['login'] = $login;
-                        header('Location: index.php');
-                        $_SESSION['nom'] =$reponse['nom'];
-                        $_SESSION['prenom']=$reponse['prenom'];
+                        // $_SESSION['nom'] =$reponse['nom'];
+                        // $_SESSION['prenom']=$reponse['prenom'];
                         $_SESSION['password']=$reponse['password'];
+                    if(password_verify($password, $reponse['password']) || $password == $reponse['password']){
+                    
+                    exit();
                     }
                     else{
-                        echo "<h3>login ou password incorrect</h3>";
+                       
                     }
-                }
-            }?>
+                // }
+             -->
             <form  method="post">
               <label for="login">Login</label>
               <input type="text" id="login" name="login">
