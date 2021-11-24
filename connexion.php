@@ -7,7 +7,7 @@ session_start();
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="accueil connexion.css">
+    <link rel="stylesheet" href="style.css">
     <title>Connexion</title>
 </head>
 <body>
@@ -45,34 +45,12 @@ session_start();
                                 header('Location: index.php');
                                 exit();
                             }
-                        var_dump($_SESSION);
-                        var_dump($utilisateurs);
                         }
                         else{
                             echo "<h3>login ou password incorrect</h3>";
                         }
                     }
                 }?>
-             <!-- if (isset($_POST['login']) && isset($_POST['password'])){
-
-                $password = $_POST['password'];
-                // if($login !== "" && $password !== ""){
-                    $requete = "SELECT * FROM utilisateurs WHERE login = '$login' AND password = '$password'";
-                    $requete2 = mysqli_query($bdd, $requete);
-                    $reponse = mysqli_fetch_all($requete2);
-                        $_SESSION['login'] = $login;
-                        // $_SESSION['nom'] =$reponse['nom'];
-                        // $_SESSION['prenom']=$reponse['prenom'];
-                        $_SESSION['password']=$reponse['password'];
-                    if(password_verify($password, $reponse['password']) || $password == $reponse['password']){
-                    
-                    exit();
-                    }
-                    else{
-                       
-                    }
-                // }
-             -->
             <form  method="post">
               <label for="login">Login</label>
               <input type="text" id="login" name="login">

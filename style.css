@@ -16,7 +16,7 @@ ul {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: blue;
+    background-color: rgb(8, 12, 241);
     min-width:30%;
   }
 
@@ -82,7 +82,7 @@ ul {
     margin-bottom: 50px;
     box-shadow: 3px 6px #06F5A4;
   }
-/*------------------message d'erreur--------------------------------------------------*/
+/*------------------message--------------------------------------------------*/
   h3{
     color: red;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
@@ -99,9 +99,8 @@ ul {
 
   input[type=submit]:hover {
     background-color: rgb(255, 4, 4);
-    border: 4px solid black;
   }
-  /*----------------------------index-------------------------------------*/
+  /*----------------------------index-Grid------------------------------------*/
   #bonjour{
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-size: 150%;
@@ -153,3 +152,10 @@ footer{
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   background-color: #02AEFB ;
 }
+.icone{
+  height: 50px;
+  width: 50px;
+}
+
+
+/* -------------------------finishim------------------------------------------------ */

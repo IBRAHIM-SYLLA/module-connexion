@@ -7,7 +7,7 @@ $requete = mysqli_query($bdd,"SELECT * FROM utilisateurs");
 
 $utilisateurs = mysqli_fetch_all($requete, MYSQLI_ASSOC);
 
-if ($_SESSION['utilisateurs'] != 'admin'){
+if ($_SESSION['utilisateurs']['login'] != 'admin'){
     header('Location: index.php');
     exit();
 }
@@ -22,7 +22,7 @@ if(isset($_POST['deconnexion'])){
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="accueil connexion.css">
+        <link rel="stylesheet" href="style.css">
         <title>admin</title>
     </head>
         <body>
@@ -30,23 +30,27 @@ if(isset($_POST['deconnexion'])){
                     <h1><em>Administration</em></h1>
                         <ul>
                             <li><a href="index.php">Accueil</a></li>
-                            <?php if (empty($_SESSION)){
-                                echo '<li><a href="inscription.php">Inscription</a></li>
-                                <li><a href="connexion.php">Connexion</a></li>';
-                            }?>
+                            <?php
+                                if (empty($_SESSION)){
+                                    echo '<li><a href="inscription.php">Inscription</a></li>
+                                    <li><a href="connexion.php">Connexion</a></li>';
+                                }
+                            ?>
                             <li><a href="profil.php">Mon Profil</a></li>
-                            <?php if (isset($_POST['login']) && isset($_POST['password']) == 'admin'){
-                                echo '<li><a href="admin.php">Admin</a></li>';
-                            }
-                            if(!empty( $_SESSION)){
-                        echo '<li><form action="" method="post">
-                                <input class="index" type="submit" value="deconnexion" name = "deconnexion">
-                            </form></li>';
-                        }?>
+                            <?php
+                                if (isset($_POST['login']) && isset($_POST['password']) == 'admin'){
+                                    echo '<li><a href="admin.php">Admin</a></li>';
+                                }
+                                if(!empty( $_SESSION)){
+                                    echo '<li><form action="" method="post">
+                                            <input class="index" type="submit" value="deconnexion" name = "deconnexion">
+                                        </form></li>';
+                                }
+                            ?>
                         </ul>
                 </header>
             <main>
-                <div id = 'table'>
+                <div id= 'table'>
                     <table>
                         <thead>
                             <tr>
@@ -75,11 +79,11 @@ if(isset($_POST['deconnexion'])){
                 <div>
                     <p class="footerh1">Suivez nous !</p>
                     <div class="rs">
-                        <img src="image/facebook.svg" alt="" height="64px">
-                        <p>Instagram</p>
+                        <img class="icone" src="image/facebook.svg" alt="" height="64px">
+                        <p>Facebook</p>
                     </div>
                     <div class="rs">
-                        <img src="image/instagram.svg" alt="" height="64px">
+                        <img class="icone" src="image/instagram.svg" alt="" height="64px">
                         <p>Instagram</p>
                     </div>
                 </div>

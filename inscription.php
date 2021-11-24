@@ -4,7 +4,7 @@
    <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="accueil connexion.css">
+    <link rel="stylesheet" href="style.css">
     <title>Inscription</title>
 </head>
 <body>
@@ -34,9 +34,9 @@
                                 $requete = mysqli_query($bdd,"INSERT INTO utilisateurs (login, prenom, nom, password) VALUES ('$i', '$j', '$k', '$l')");
                                 header('Location: connexion.php');
                             }
-                        else {
-                            echo "Login déjà utilisé !!!";
-                        }
+                            else {
+                                echo "<h3>Login déjà utilisé !!!</h3>";
+                            }
                     }
                     else
                     {

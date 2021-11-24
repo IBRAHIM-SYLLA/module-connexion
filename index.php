@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="accueil connexion.css">
+    <link rel="stylesheet" href="style.css">
     <title>Document</title>
 </head>
 <body>
@@ -15,16 +15,17 @@
     <h1><em> ANIME & Co</em></h1>
         <ul>
             <li><a href="index.php">Accueil</a></li>
-            <?php if (empty($_SESSION)){
-                echo '<li><a href="inscription.php">Inscription</a></li>
-                <li><a href="connexion.php">Connexion</a></li>';
+            <?php
+            if (empty($_SESSION)){
+                    echo '<li><a href="inscription.php">Inscription</a></li>
+                    <li><a href="connexion.php">Connexion</a></li>';
             }
                 else{
                     echo '<li><a href="profil.php">Mon Profil</a></li>';
                 }
             ?>
             <?php
-                if (isset($_SESSION['utilisateurs']) && isset($_SESSION['password']) && $_SESSION['password'] == 'admin'){
+                if (isset($_SESSION['utilisateurs']['login']) && isset($_SESSION['utilisateurs']['password']) == 'admin'){
                     echo '<li><a href="admin.php">Admin</a></li>';
                 }
                 if(!empty( $_SESSION)){
@@ -42,8 +43,7 @@
                 header("location: connexion.php");
             }
             else if(!empty($_SESSION)){
-                $user = $_SESSION['utilisateurs'];
-                echo "<p id='bonjour'>Bonjour $user, vous êtes connectés".'</p>';
+                echo "<p id='bonjour'>Bonjour ".$_SESSION['utilisateurs']['login'].", vous êtes connectés".'</p>';
             }
         ?>
         <div class="gallimg">
@@ -59,18 +59,18 @@
     </main>
 
     <footer>
-        <div>
+            <div>
             <p class="footerh1">Suivez nous !</p>
-            <div class="rs">
-                <img src="image/facebook.svg" alt="" height="64px">
-                <p>Instagram</p>
+                <div class="rs">
+                    <img class="icone" src="image/facebook.svg" alt="" height="64px">
+                    <p>Facebook</p>
+                </div>
+                <div class="rs">
+                    <img class="icone" src="image/instagram.svg" alt="" height="64px">
+                    <p>Instagram</p>
+                </div>
             </div>
-            <div class="rs">
-                <img src="image/instagram.svg" alt="" height="64px">
-                <p>Instagram</p>
-            </div>
-        </div>
-        <div>
+            <div>
             <p class="footerh1">Github</p>
             <a href="https://github.com/IBRAHIM-SYLLA/module-connexion.git" target="_blank"><p>Module-connexion</p></a>
         </div>
